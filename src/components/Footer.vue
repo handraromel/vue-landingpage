@@ -1,25 +1,64 @@
 <template>
-    <v-footer color="blue darken-2">
-        <v-layout row wrap align-center>
-            <v-flex xs12>
-                <div class="white--text ml-4">
-                    Made with
-                    <v-icon class="red--text">mdi-heart</v-icon>
-                    by <a class="white--text" href="https://vuetifyjs.com" target="_blank">Vuetify</a>
-                    and <a class="white--text" href="https://github.com/vwxyzjn">Costa Huang</a>
-                </div>
-            </v-flex>
-        </v-layout>
+    <v-footer
+            v-bind="localAttrs"
+            :padless="padless"
+    >
+        <v-card
+                flat
+                tile
+                width="100%"
+                class="white lighten-1 text-center"
+        >
+
+            <v-card-text class="black--text">
+                {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+            </v-card-text>
+
+            <v-card-text>
+                <v-btn
+                        v-for="icon in icons"
+                        :key="icon"
+                        class="mx-4"
+                        icon
+                >
+                    <v-icon size="24px">{{ icon }}</v-icon>
+                </v-btn>
+            </v-card-text>
+        </v-card>
     </v-footer>
 </template>
 
 <script>
     export default {
-        data() {
-            return  {
+        data: () => ({
+            icons: [
+                'fa fa-facebook fa-lg',
+                'fa fa-twitter fa-lg',
+                'fa fa-google-plus fa-lg',
+                'fa fa-linkedin fa-lg',
+                'fa fa-instagram fa-lg',
+            ],
+            items: [
+                'default',
+                'absolute',
+                'fixed',
+            ],
+            padless: true,
+            variant: 'default',
+        }),
+        computed: {
+            localAttrs () {
+                const attrs = {}
 
-            }
-        }
+                if (this.variant === 'default') {
+                    attrs.absolute = false
+                    attrs.fixed = false
+                } else {
+                    attrs[this.variant] = true
+                }
+                return attrs
+            },
+        },
     }
 </script>
 
